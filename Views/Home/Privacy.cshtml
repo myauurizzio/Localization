@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@* The IViewLocalizer can be injected into the view. It does two things of interest:
+    1. It can HTML encode *parameters* passed to resource strings (not the resource strings themselves, as they may contain
+       HTML) automatically, and return the result as an IHtmlContent so Razor won't HTML encode it again;
+    2. It looks for localization resources for this view based on the view path, e.g. if the view's path is
+       "MyApplication/Views/Home/Index.cshtml", then the corresponding resource base path will be "MyApplication.Views.Home.Index" *@
+
+@inject IViewLocalizer Localizer
+
+@{
+    string _titles = "(" + System.Globalization.CultureInfo.CurrentCulture.Name + ")";
+    ViewData["Title"] = Localizer["Privacy Policy"];
+    // +
+}
+
+@{
+}
+<h1>@ViewData["Title"] - @_titles</h1>
+
+
+
+<p>@Localizer["Last updated"]: @Convert.ToDateTime("18 October 2019").ToLongDateString()</p>
+<p>@Localizer["Private person (\"us\", \"we\", or \"our\") operates this site (the \"Site\"). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site."]</p>
+
+
+<p>@ViewBag.Policy</p>
